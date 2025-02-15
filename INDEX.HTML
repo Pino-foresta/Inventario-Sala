@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Magazzino</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="login-container">
+        <h2>Accesso Magazzino</h2>
+        <input type="password" id="password" placeholder="Inserisci la password">
+        <button id="login-button">Accedi</button>
+    </div>
+    
+    <div id="app" style="display:none;">
+        <h1>Gestione Magazzino</h1>
+        
+		<button id="show-inventory-btn" onclick="showInventory()">Visualizza Deposito</button>
+		<button id="show-log-btn" onclick="showLog()">Visualizza Registro Attività</button>
+<div id="admin-section">
+    <h2>Area Admin</h2>
+</div>
+        
+        <h2>Aggiungi Prodotto Manualmente</h2>
+        <div id="manual-add-section">
+            <input type="text" id="manual-name" placeholder="Nome prodotto">
+            <input type="text" id="manual-description" placeholder="Descrizione">
+            <input type="number" id="manual-quantity" placeholder="Quantità">
+            <button id="generate-barcode-btn" onclick="generateBarcode()">Genera Codice</button>
+			<button id="add-product-btn" onclick="addManualProduct()">Salva Prodotto</button>
+
+        </div>
+        
+        <h2>Codice a Barre Generato</h2>
+        <div id="barcode-container">
+            <div id="barcode"></div>
+        </div>
+        
+        <h2>Scannerizza Codice</h2>
+        <video id="scanner-video" style="width:100%; max-width:400px; display:none;"></video>
+        <button id="scanner-btn" onclick="startScanner()" style="display:none;">Avvia Scanner</button>
+
+        
+        <h2>Lista Prodotti</h2>
+        <div id="product-list"></div>
+        
+        <h2>Registro Movimenti</h2>
+        <div id="log"></div>
+    </div>
+</body>
+</html>
