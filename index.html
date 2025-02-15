@@ -50,16 +50,17 @@
         <h2>Registro Movimenti</h2>
         <div id="log"></div>
     </div>
-<!-- Carica Firebase 8 PRIMA di firebase.js -->
+<!-- Carica Firebase 8 (NON Firebase 9 o 10) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-<!-- Carica il file firebase.js -->
+<!-- Carica firebase.js dopo Firebase -->
 <script src="firebase.js"></script>
 
-<!-- Bottone per testare il salvataggio dati -->
+<!-- Bottoni per testare il database -->
 <button onclick="salvaDati()">Salva Dati</button>
 <button onclick="leggiDati()">Leggi Dati</button>
+
 
 </body>
 </html>
