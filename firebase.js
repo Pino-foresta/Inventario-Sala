@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Configurazione Firebase (Sostituisci con i tuoi dati reali)
     const firebaseConfig = {
-        apiKey: "AIzaSyBgMtqvZYT4_IpL3Og7y_weXaQbFLQVXZc",
-  authDomain: "inventario-sala.firebaseapp.com",
+            apiKey: "AIzaSyBgMtqvZYT4_IpL3Og7y_weXaQbFLQVXZc",
+            authDomain: "inventario-sala.firebaseapp.com",
   databaseURL: "https://inventario-sala-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "inventario-sala",
   storageBucket: "inventario-sala.firebasestorage.app",
