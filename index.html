@@ -50,16 +50,16 @@
         <h2>Registro Movimenti</h2>
         <div id="log"></div>
     </div>
- <!-- Carica Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"></script>
+<!-- Carica Firebase PRIMA di firebase.js -->
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"></script>
 
-    <!-- Carica il file firebase.js -->
-    <script src="firebase.js"></script>
+<!-- Carica il file firebase.js -->
+<script src="firebase.js"></script>
 
-    <!-- Bottone per testare il salvataggio dati -->
-    <button onclick="salvaDati()">Salva Dati</button>
-    <button onclick="leggiDati()">Leggi Dati</button>
+<!-- Bottone per testare il salvataggio dati -->
+<button onclick="salvaDati()">Salva Dati</button>
+<button onclick="leggiDati()">Leggi Dati</button>
 
 </body>
 </html>
