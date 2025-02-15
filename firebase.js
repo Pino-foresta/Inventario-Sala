@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Controlla se Firebase è stato caricato
     if (typeof firebase === "undefined") {
-        console.error("Errore: Firebase non è stato caricato correttamente!");
+        console.error("❌ Errore: Firebase non è stato caricato correttamente!");
         return;
     }
 
@@ -23,17 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    console.log("Firebase inizializzato correttamente!");
+    console.log("✅ Firebase inizializzato correttamente!");
 
-    // RENDI LE FUNZIONI GLOBALI (così i bottoni onclick possono trovarle)
+    // Rendi le funzioni globali
     window.salvaDati = function () {
         db.ref('inventario/prodotto1').set({
             nome: "Laptop",
             prezzo: 1000
         }).then(() => {
-            alert("Dati salvati!");
+            alert("✅ Dati salvati!");
         }).catch((error) => {
-            alert("Errore: " + error);
+            alert("❌ Errore: " + error);
         });
     };
 
@@ -41,15 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
         db.ref('inventario/prodotto1').get().then((snapshot) => {
             if (snapshot.exists()) {
                 console.log(snapshot.val());
-                alert("Dati letti: " + JSON.stringify(snapshot.val()));
+                alert("✅ Dati letti: " + JSON.stringify(snapshot.val()));
             } else {
-                console.log("Nessun dato trovato");
-                alert("Nessun dato trovato");
+                console.log("⚠️ Nessun dato trovato");
+                alert("⚠️ Nessun dato trovato");
             }
         }).catch((error) => {
-            console.error("Errore: ", error);
+            console.error("❌ Errore: ", error);
         });
     };
 });
-
-
