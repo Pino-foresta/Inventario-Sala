@@ -1,6 +1,6 @@
 // Aspetta che la pagina sia completamente caricata prima di eseguire il codice
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Firebase.js caricato correttamente!");
+    console.log("✅ Firebase.js caricato correttamente!");
 
     // Controlla se Firebase è stato caricato
     if (typeof firebase === "undefined") {
