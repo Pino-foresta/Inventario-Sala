@@ -1,16 +1,16 @@
-// Aspetta che la pagina sia completamente caricata prima di eseguire il codice
+// Aspetta che Firebase venga caricato prima di inizializzare
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Firebase.js caricato correttamente!");
 
     // Controlla se Firebase è stato caricato
     if (typeof firebase === "undefined") {
-        console.error("❌ Errore: Firebase non è stato caricato correttamente!");
+        console.error("❌ ERRORE: Firebase non è stato caricato correttamente! Controlla la versione nel tuo index.html.");
         return;
     }
 
     // Configurazione Firebase (Sostituisci con i tuoi dati reali)
     const firebaseConfig = {
-       apiKey: "AIzaSyBgMtqvZYT4_IpL3Og7y_weXaQbFLQVXZc",
+        apiKey: "AIzaSyBgMtqvZYT4_IpL3Og7y_weXaQbFLQVXZc",
   authDomain: "inventario-sala.firebaseapp.com",
   databaseURL: "https://inventario-sala-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "inventario-sala",
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("✅ Firebase inizializzato correttamente!");
 
-    // Rendi le funzioni globali
+    // Funzione per salvare dati
     window.salvaDati = function () {
         db.ref('inventario/prodotto1').set({
             nome: "Laptop",
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
+    // Funzione per leggere dati
     window.leggiDati = function () {
         db.ref('inventario/prodotto1').get().then((snapshot) => {
             if (snapshot.exists()) {
