@@ -1,6 +1,12 @@
-// Aspetta che la pagina sia caricata prima di eseguire il codice
+// Aspetta che la pagina sia completamente caricata prima di eseguire il codice
 document.addEventListener("DOMContentLoaded", function() {
     console.log("Firebase.js caricato correttamente!");
+
+    // Controlla se Firebase è già definito
+    if (typeof firebase === "undefined") {
+        console.error("Firebase non è stato caricato correttamente!");
+        return;
+    }
 
     // Configurazione Firebase (Sostituisci con i tuoi dati reali)
     const firebaseConfig = {
