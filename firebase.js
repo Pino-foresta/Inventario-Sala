@@ -1,21 +1,25 @@
-// Assicurati che Firebase sia caricato prima di usare il database
+// Aspetta che la pagina sia caricata prima di eseguire il codice
 document.addEventListener("DOMContentLoaded", function() {
-    // Configurazione Firebase (sostituisci con i tuoi dati)
+    console.log("Firebase.js caricato correttamente!");
+
+    // Configurazione Firebase (Sostituisci con i tuoi dati reali)
     const firebaseConfig = {
         apiKey: "AIzaSyBgMtqvZYT4_IpL3Og7y_weXaQbFLQVXZc",
-        authDomain: "inventario-sala.firebaseapp.com",
-        databaseURL: "https://inventario-sala-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "inventario-sala",
-        storageBucket: "inventario-sala.firebasestorage.app",
-        messagingSenderId: "927791055578",
-        appId: "1:927791055578:web:54c7988af98f1cc80fdbe3"
+  authDomain: "inventario-sala.firebaseapp.com",
+  databaseURL: "https://inventario-sala-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "inventario-sala",
+  storageBucket: "inventario-sala.firebasestorage.app",
+  messagingSenderId: "927791055578",
+  appId: "1:927791055578:web:54c7988af98f1cc80fdbe3"
     };
 
     // Inizializza Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // Rendi le funzioni globali
+    console.log("Firebase inizializzato correttamente!");
+
+    // Funzione per salvare dati nel database
     window.salvaDati = function() {
         db.ref('inventario/prodotto1').set({
             nome: "Laptop",
@@ -27,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     };
 
+    // Funzione per leggere dati dal database
     window.leggiDati = function() {
         db.ref('inventario/prodotto1').get().then((snapshot) => {
             if (snapshot.exists()) {
@@ -41,3 +46,4 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     };
 });
+
