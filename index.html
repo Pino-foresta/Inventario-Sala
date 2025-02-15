@@ -50,5 +50,55 @@
         <h2>Registro Movimenti</h2>
         <div id="log"></div>
     </div>
+<script type="module">
+  // Importa Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+  import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+  // CONFIGURAZIONE FIREBASE (sostituisci con i tuoi dati)
+  const firebaseConfig = {
+    apiKey: "TUA_API_KEY",
+    authDomain: "TUO_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://TUO_PROJECT_ID.firebaseio.com",
+    projectId: "TUO_PROJECT_ID",
+    storageBucket: "TUO_PROJECT_ID.appspot.com",
+    messagingSenderId: "TUO_SENDER_ID",
+    appId: "TUO_APP_ID"
+  };
+
+  // Inizializza Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Funzione per salvare dati nel database
+  function salvaDati() {
+    set(ref(db, 'inventario/prodotto1'), {
+      nome: "Laptop",
+      prezzo: 1000
+    }).then(() => {
+      alert("Dati salvati!");
+    }).catch((error) => {
+      alert("Errore: " + error);
+    });
+  }
+
+  // Funzione per leggere dati dal database
+  function leggiDati() {
+    get(ref(db, 'inventario/prodotto1')).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log("Nessun dato trovato");
+      }
+    }).catch((error) => {
+      console.error("Errore: ", error);
+    });
+  }
+</script>
+
+<!-- Bottone per testare il salvataggio dati -->
+<button onclick="salvaDati()">Salva Dati</button>
+<button onclick="leggiDati()">Leggi Dati</button>
+
 </body>
 </html>
