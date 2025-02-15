@@ -1,10 +1,10 @@
 // Aspetta che la pagina sia completamente caricata prima di eseguire il codice
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     console.log("Firebase.js caricato correttamente!");
 
-    // Controlla se Firebase è già definito
+    // Controlla se Firebase è stato caricato
     if (typeof firebase === "undefined") {
-        console.error("Firebase non è stato caricato correttamente!");
+        console.error("Errore: Firebase non è stato caricato correttamente!");
         return;
     }
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("Firebase inizializzato correttamente!");
 
     // RENDI LE FUNZIONI GLOBALI (così i bottoni onclick possono trovarle)
-    window.salvaDati = function() {
+    window.salvaDati = function () {
         db.ref('inventario/prodotto1').set({
             nome: "Laptop",
             prezzo: 1000
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     };
 
-    window.leggiDati = function() {
+    window.leggiDati = function () {
         db.ref('inventario/prodotto1').get().then((snapshot) => {
             if (snapshot.exists()) {
                 console.log(snapshot.val());
@@ -51,4 +51,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     };
 });
+
 
