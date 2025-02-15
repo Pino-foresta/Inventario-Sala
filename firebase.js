@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log("Firebase inizializzato correttamente!");
 
-    // Funzione per salvare dati nel database
+    // RENDI LE FUNZIONI GLOBALI (così i bottoni onclick possono trovarle)
     window.salvaDati = function() {
         db.ref('inventario/prodotto1').set({
             nome: "Laptop",
@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     };
 
-    // Funzione per leggere dati dal database
     window.leggiDati = function() {
         db.ref('inventario/prodotto1').get().then((snapshot) => {
             if (snapshot.exists()) {
