@@ -38,30 +38,35 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Funzione per leggere dati
-    window.leggiDati = function () {
-    db.ref('inventario').once('value', function(snapshot) {
-        if (snapshot.exists()) {
-            console.log("📥 Dati recuperati da Firebase:", snapshot.val());
+    window.salvaDati = function () {
+    let nomeProdotto = document.getElementById("manual-name").value;
+    let descrizioneProdotto = document.getElementById("manual-description").value;
+    let quantitaProdotto = document.getElementById("manual-quantity").value;
+    let codiceProdotto = Date.now().toString(); // Genera un ID univoco
 
-            let inventario = snapshot.val();
-            let productList = document.getElementById("product-list");
+    if (!nomeProdotto || !quantitaProdotto) {
+        alert("❌ Devi inserire almeno il nome e la quantità del prodotto.");
+        return;
+    }
 
-            // Svuota la lista prima di aggiungere nuovi elementi
-            productList.innerHTML = "";
+    let nuovoProdotto = {
+        nome: nomeProdotto,
+        descrizione: descrizioneProdotto,
+        quantita: quantitaProdotto,
+        codice: codiceProdotto
+    };
 
-            for (let key in inventario) {
-                let prodotto = inventario[key];
-
-                let prodottoDiv = document.createElement("div");
-                prodottoDiv.innerHTML = `<strong>${prodotto.nome}</strong> - Prezzo: €${prodotto.prezzo}`;
-                productList.appendChild(prodottoDiv);
-            }
-        } else {
-            console.log("⚠️ Nessun dato trovato in Firebase.");
-            alert("⚠️ Nessun prodotto inserito.");
-        }
-    }, function(error) {
-        console.error("❌ Errore nella lettura dei dati:", error);
-    });
+    let nuovoID = db.ref('inventario').push().key; // Genera un nuovo ID nel database
+    db.ref('inventario/' + nuovoID).set(nuovoProdotto)
+        .then(() => {
+            alert("✅ Prodotto salvato con successo!");
+            document.getElementById("manual-name").value = "";
+            document.getElementById("manual-description").value = "";
+            document.getElementById("manual-quantity").value = "";
+        })
+        .catch((error) => {
+            alert("❌ Errore nel salvataggio: " + error);
+        });
 };
+
 });
