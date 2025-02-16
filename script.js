@@ -69,22 +69,43 @@ function generateBarcode() {
 }
 
 function showInventory() {
-    let inventoryWindow = window.open("", "_blank");
-    inventoryWindow.document.write("<html><head><title>Deposito Prodotti</title></head><body>");
-    inventoryWindow.document.write("<h2>Deposito Prodotti</h2>");
-    if (products.length === 0) {
-        inventoryWindow.document.write("<p>Nessun prodotto memorizzato.</p>");
-    } else {
-        inventoryWindow.document.write("<table border='1'><tr><th>Nome</th><th>Descrizione</th><th>Quantità</th><th>Codice</th></tr>");
-        products.forEach(prod => {
-            inventoryWindow.document.write(`<tr><td>${prod.name}</td><td>${prod.desc}</td><td>${prod.qty}</td><td><img src='https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${prod.barcode}' alt='QR Code'></td></tr>`);
-        });
-        inventoryWindow.document.write("</table>");
-    }
-    inventoryWindow.document.write("<br><button onclick='window.print()'>Stampa / Salva PDF</button>");
-    inventoryWindow.document.write("</body></html>");
-    inventoryWindow.document.close();
+    console.log("🔍 Recupero dati dall'inventario Firebase...");
+    
+    db.ref('inventario').once('value', function(snapshot) {
+        let inventoryWindow = window.open("", "_blank");
+        inventoryWindow.document.write("<html><head><title>Deposito Prodotti</title></head><body>");
+        inventoryWindow.document.write("<h2>Deposito Prodotti</h2>");
+
+        if (snapshot.exists()) {
+            let inventario = snapshot.val();
+            inventoryWindow.document.write("<table border='1'><tr><th>Nome</th><th>Descrizione</th><th>Quantità</th><th>Codice</th></tr>");
+            
+            for (let key in inventario) {
+                let prodotto = inventario[key];
+
+                inventoryWindow.document.write(
+                    `<tr>
+                        <td>${prodotto.nome}</td>
+                        <td>${prodotto.descrizione ? prodotto.descrizione : "N/A"}</td>
+                        <td>${prodotto.quantita ? prodotto.quantita : "N/A"}</td>
+                        <td><img src='https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${prodotto.codice || "N/A"}' alt='QR Code'></td>
+                    </tr>`
+                );
+            }
+            
+            inventoryWindow.document.write("</table>");
+        } else {
+            inventoryWindow.document.write("<p>Nessun prodotto memorizzato.</p>");
+        }
+
+        inventoryWindow.document.write("<br><button onclick='window.print()'>Stampa / Salva PDF</button>");
+        inventoryWindow.document.write("</body></html>");
+        inventoryWindow.document.close();
+    }, function(error) {
+        console.error("❌ Errore nel recupero dei dati da Firebase:", error);
+    });
 }
+
 
 function showLog() {
     let logWindow = window.open("", "_blank");
