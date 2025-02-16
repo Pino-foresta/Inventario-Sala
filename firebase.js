@@ -39,16 +39,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Funzione per leggere dati
     window.leggiDati = function () {
-        db.ref('inventario/prodotto1').get().then((snapshot) => {
-            if (snapshot.exists()) {
-                console.log(snapshot.val());
-                alert("✅ Dati letti: " + JSON.stringify(snapshot.val()));
-            } else {
-                console.log("⚠️ Nessun dato trovato");
-                alert("⚠️ Nessun dato trovato");
+    db.ref('inventario').once('value', function(snapshot) {
+        if (snapshot.exists()) {
+            console.log("📥 Dati recuperati da Firebase:", snapshot.val());
+
+            let inventario = snapshot.val();
+            let productList = document.getElementById("product-list");
+
+            // Svuota la lista prima di aggiungere nuovi elementi
+            productList.innerHTML = "";
+
+            for (let key in inventario) {
+                let prodotto = inventario[key];
+
+                let prodottoDiv = document.createElement("div");
+                prodottoDiv.innerHTML = `<strong>${prodotto.nome}</strong> - Prezzo: €${prodotto.prezzo}`;
+                productList.appendChild(prodottoDiv);
             }
-        }).catch((error) => {
-            console.error("❌ Errore: ", error);
-        });
-    };
+        } else {
+            console.log("⚠️ Nessun dato trovato in Firebase.");
+            alert("⚠️ Nessun prodotto inserito.");
+        }
+    }, function(error) {
+        console.error("❌ Errore nella lettura dei dati:", error);
+    });
+};
 });
