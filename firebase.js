@@ -26,19 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Firebase inizializzato correttamente!");
 
     // Funzione per salvare dati
-    window.salvaDati = function () {
-        db.ref('inventario/prodotto1').set({
-            nome: "Laptop",
-            prezzo: 1000
-        }).then(() => {
-            alert("✅ Dati salvati!");
-        }).catch((error) => {
-            alert("❌ Errore: " + error);
-        });
-    };
-
-    // Funzione per leggere dati
-    window.salvaDati = function () {
+   window.salvaDati = function () {
     let nomeProdotto = document.getElementById("manual-name").value;
     let descrizioneProdotto = document.getElementById("manual-description").value;
     let quantitaProdotto = document.getElementById("manual-quantity").value;
@@ -67,6 +55,34 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch((error) => {
             alert("❌ Errore nel salvataggio: " + error);
         });
+};
+
+
+    // Funzione per leggere dati
+    window.leggiDati = function () {
+    db.ref('inventario').once('value', function(snapshot) {
+        if (snapshot.exists()) {
+            console.log("📥 Dati recuperati da Firebase:", snapshot.val());
+
+            let inventario = snapshot.val();
+            let productList = document.getElementById("product-list");
+
+            productList.innerHTML = ""; // Svuota la lista prima di aggiornarla
+
+            for (let key in inventario) {
+                let prodotto = inventario[key];
+
+                let prodottoDiv = document.createElement("div");
+                prodottoDiv.innerHTML = `<strong>${prodotto.nome}</strong> - Quantità: ${prodotto.quantita} - Descrizione: ${prodotto.descrizione ? prodotto.descrizione : "N/A"}`;
+                productList.appendChild(prodottoDiv);
+            }
+        } else {
+            console.log("⚠️ Nessun dato trovato in Firebase.");
+            alert("⚠️ Nessun prodotto trovato nel database.");
+        }
+    }, function(error) {
+        console.error("❌ Errore nella lettura dei dati:", error);
+    });
 };
 
 });
