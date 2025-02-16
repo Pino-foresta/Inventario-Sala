@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Inizializza Firebase
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    window.db = firebase.database();
 
     console.log("✅ Firebase inizializzato correttamente!");
 
